@@ -48,6 +48,15 @@ Now we want to assess the quality of this synthetic data to evaluate our replica
   3. Usefulness 
  
 ### Diversity
+First, we will investigate the diversity of the dataset. The main question we are asking here is: does the synthetic data distribution match the distribution of the real data? 
+
+
+### Fidelity 
+Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. 
+
+### Usefulness
+Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. 
+
 
 ## Conclusions and future applications
 
