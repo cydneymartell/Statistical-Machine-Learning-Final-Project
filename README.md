@@ -24,8 +24,8 @@ Through this tutorial you will learn:
 ## Introduction to using GANs to generate temporal data
 There is a need to generate synthetic time series data sets to augment these datasets for applications in financial trading and the medical field [2]. Data augmentation of time series data sets could be especially useful in scenarios where privacy is an issue and to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
 
-There have been different approaches developed to generate synthetic time series data:
-  1. Autoregressive RNN
+In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data.
+  1. Autoregressive Recurrent Networks
   2. GAN Based Approaches
 
 ## Historical stock prices dataset
