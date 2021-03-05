@@ -3,7 +3,7 @@ by Cydney Martell and Idris Sunmola
 
 Generative Adversarial Networks (GANs) are a machine learning approach developed by Ian Goodfellow et al. in 2014 that use deep learning methods generate synthetic datasets. The overarching goal is to train a generator and discriminator in a competitive setting so the generator creates samples that the discriminator cannot distinguish from the real training data. GANs have been applied to generating high resolution images and in image to image translation. In addition to applications in image data, GANs have also been developed to generate synthetic time series datasets for applications in financial trading.  
 
-In this tutorial, we will explain the TimeGAN architecture developed by Yoon et al. 2019 and how it can be used to generate temporal time series data. We will then explain how to replicate TimeGAN and train it on our dataset to generate synthetic historical stock price dataset. The original manuscript can be found at the following link: https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf. 
+In this tutorial, we will explain the TimeGAN architecture developed by Yoon et al. 2019 [1] and how it can be used to generate temporal time series data. We will then explain how to replicate TimeGAN and train it on our dataset to generate synthetic historical stock price dataset. The original manuscript can be found at the following link: https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf. 
 
 Through this tutorial you will learn:
 * The basics of TimeGAN architecture 
@@ -38,3 +38,4 @@ Through this tutorial you will learn:
 ## Conclusions and future applications
 
 ## References
+[1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf
