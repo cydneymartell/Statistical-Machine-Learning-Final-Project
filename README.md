@@ -36,3 +36,5 @@ Through this tutorial you will learn:
 ## Evaluation of training results
 
 ## Conclusions and future applications
+
+## References
