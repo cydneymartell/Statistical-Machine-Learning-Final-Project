@@ -39,9 +39,8 @@ Prior to training our TimeGAN model, we preprocessed the data following the meth
     
     #Obtains and stores the historical price dataset
     def get_wiki_prices():
-        """source: https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY>
-            Download and rename to wiki_prices.csv
-        """
+        #Downloaded from https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY> and saved as 'Wiki.csv'
+      
 
         df = pd.read_csv('Wiki.csv',
                          parse_dates=['date'],
