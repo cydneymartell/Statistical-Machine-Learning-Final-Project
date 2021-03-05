@@ -30,7 +30,7 @@ In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to
 **FINISH THIS**
 
 ## Historical stock prices dataset
-We trained our replicated TimeGAN architechture on the 
+We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. 
 
 ''python 
 def get_wiki_prices():
@@ -46,7 +46,8 @@ def get_wiki_prices():
     print(df.info(null_counts=True))
     with pd.HDFStore('assets.h5') as store:
         store.put('quandl/wiki/prices', df)
-        ''
+![image](https://user-images.githubusercontent.com/78554498/110181326-23f7a080-7dd1-11eb-83ba-58be8b3b13c6.png)
+
 
 ## Overview of TimeGAN architecture
 
