@@ -30,22 +30,8 @@ In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to
 **FINISH THIS**
 
 ## Historical stock prices dataset
-We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. 
+We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected everyday from July 6, 2015 to 2018. While this set contains data for 3,000 US companies,  we decided to select 84 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found at tickers.txt in the data folder. 
 
-''python 
-def get_wiki_prices():
-    """source: https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY>
-        Download and rename to wiki_prices.csv
-    """
-
-    df = pd.read_csv('Wiki.csv',
-                     parse_dates=['date'],
-                     index_col=['date', 'ticker'],
-                     infer_datetime_format=True)
-
-    print(df.info(null_counts=True))
-    with pd.HDFStore('assets.h5') as store:
-        store.put('quandl/wiki/prices', df)
 ![image](https://user-images.githubusercontent.com/78554498/110181326-23f7a080-7dd1-11eb-83ba-58be8b3b13c6.png)
 
 
