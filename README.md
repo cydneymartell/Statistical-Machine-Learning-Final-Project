@@ -50,6 +50,6 @@ Now we want to assess the quality of this synthetic data to evaluate our replica
 ## Conclusions and future applications
 
 ## References
-[1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf
+[1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf <br>
 [2] https://arxiv.org/pdf/2002.12478.pdf
 [3] http://www.blackarbs.com/synthetic-data
