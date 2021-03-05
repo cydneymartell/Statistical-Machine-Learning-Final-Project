@@ -35,7 +35,7 @@ We trained our replicated TimeGAN architechture on a free dataset of end of day 
 The following image shows an example of the historical price data for 8 of the tickers. 
 ![image](https://user-images.githubusercontent.com/78554498/110181326-23f7a080-7dd1-11eb-83ba-58be8b3b13c6.png)
 
-Prior to training our TimeGAN model, we preprocessed the data following the methods of preprocess used by Yoon et. al. 
+Prior to training our TimeGAN model, we preprocessed the data following the methods of preprocess used by Yoon et. al. We used MinMaxScaler to scale the raw price series data between 0 and 1. We then created rolling window sequences with an overlap of 24 data points as used by Yoon et al. 
     
     #Obtains and stores the dataset
     def get_wiki_prices():
