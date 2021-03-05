@@ -22,6 +22,9 @@ Through this tutorial you will learn:
 8. Conclusions and future applications
 
 ## Introduction to using GANs to generate temporal data
+There is a need to generate synthetic time series data sets to augment these datasets for applications in financial trading and the medical field [2]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
+
+There are 
 
 ## Historical stock prices dataset
 
@@ -39,3 +42,4 @@ Through this tutorial you will learn:
 
 ## References
 [1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf
+[2] https://arxiv.org/pdf/2002.12478.pdf
