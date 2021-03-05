@@ -30,8 +30,9 @@ In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to
 **FINISH THIS**
 
 ## Historical stock prices dataset
-We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected everyday from July 6, 2015 to 2018. While this set contains data for 3,000 US companies,  we decided to select 84 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found at tickers.txt in the data folder. 
+We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected everyday from July 6, 2015 to 2018. While this set contains data for 3,000 US companies,  we decided to select 86 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found in the file tickers.txt. 
 
+The following image shows an example of the historical price data for 6 of the tickers. 
 ![image](https://user-images.githubusercontent.com/78554498/110181326-23f7a080-7dd1-11eb-83ba-58be8b3b13c6.png)
 
 
