@@ -37,7 +37,7 @@ The following image shows an example of the historical price data for 8 of the t
 
 Prior to training our TimeGAN model, we preprocessed the data following the methods of preprocess used by Yoon et. al. We used MinMaxScaler to scale the raw price series data between 0 and 1. We then created rolling window sequences with an overlap of 24 data points as used by Yoon et al. 
     
-    #Obtains and stores the dataset
+    #Obtains and stores the historical price dataset
     def get_wiki_prices():
         """source: https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY>
             Download and rename to wiki_prices.csv
