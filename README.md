@@ -13,7 +13,7 @@ Through this tutorial you will learn:
 
 ## Tutorial Overview
 1. Introduction to using GANs to generate temporal data
-2. Historical ptock prices dataset
+2. Historical stock prices dataset
 3. Overview of TimeGAN architecture
 4. Description of loss functions
 5. How to train the generator
