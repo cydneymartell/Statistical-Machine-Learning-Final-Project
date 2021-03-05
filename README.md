@@ -46,10 +46,12 @@ Now we want to assess the quality of this synthetic data to evaluate our replica
   1. Diversity
   2. Fidelity
   3. Usefulness 
+ 
+### Diversity
 
 ## Conclusions and future applications
 
 ## References
 [1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf <br>
-[2] https://arxiv.org/pdf/2002.12478.pdf
+[2] https://arxiv.org/pdf/2002.12478.pdf <br>
 [3] http://www.blackarbs.com/synthetic-data
