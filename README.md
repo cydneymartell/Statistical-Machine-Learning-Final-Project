@@ -32,6 +32,22 @@ In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to
 ## Historical stock prices dataset
 We trained our replicated TimeGAN architechture on the 
 
+''python 
+def get_wiki_prices():
+    """source: https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY>
+        Download and rename to wiki_prices.csv
+    """
+
+    df = pd.read_csv('Wiki.csv',
+                     parse_dates=['date'],
+                     index_col=['date', 'ticker'],
+                     infer_datetime_format=True)
+
+    print(df.info(null_counts=True))
+    with pd.HDFStore('assets.h5') as store:
+        store.put('quandl/wiki/prices', df)
+        ''
+
 ## Overview of TimeGAN architecture
 
 ## Description of loss functions
