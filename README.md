@@ -32,9 +32,46 @@ In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to
 ## Historical stock prices dataset
 We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected everyday from July 6, 2015 to 2018. While this set contains data for 3,000 US companies,  we decided to select 86 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found in the file tickers.txt. 
 
-The following image shows an example of the historical price data for 6 of the tickers. 
+The following image shows an example of the historical price data for 8 of the tickers. 
 ![image](https://user-images.githubusercontent.com/78554498/110181326-23f7a080-7dd1-11eb-83ba-58be8b3b13c6.png)
 
+Prior to training our TimeGAN model, we preprocessed the data following the methods of preprocess used by Yoon et. al. 
+    
+    #Obtains and stores the dataset
+    def get_wiki_prices():
+        """source: https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY>
+            Download and rename to wiki_prices.csv
+        """
+
+        df = pd.read_csv('Wiki.csv',
+                         parse_dates=['date'],
+                         index_col=['date', 'ticker'],
+                         infer_datetime_format=True) 
+        with pd.HDFStore('assets.h5') as store:
+            store.put('quandl/wiki/prices', df)
+            
+    #Generates a list of ticker names      
+    with open("tickers.txt") as file:
+       tickers = [line.strip() for line in file]
+   
+    #Selects the adjusted close prices from the dataset for the 86 tickers of interest        
+    def select_data():
+        df = (pd.read_hdf('assets.h5', 'quandl/wiki/prices')
+              .adj_close
+              .unstack('ticker')
+              .loc['2000':, tickers]
+              .dropna())
+            df.to_hdf(hdf_store, 'data/real')
+    
+    #Normalizes the stock price data to be between 0 and 1 
+    scaler = MinMaxScaler()
+    scaled_data = scaler.fit_transform(df).astype(np.float32)
+    
+    #Creates rolling window sequences
+    seq_len = 24
+    data = []
+    for i in range(len(df) - seq_len):
+         data.append(scaled_data[i:i + seq_len])
 
 ## Overview of TimeGAN architecture
 
