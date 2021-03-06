@@ -26,11 +26,13 @@ There is a need to generate synthetic time series data sets to augment these dat
 
 In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data.
   1. Autoregressive Recurrent Networks
-  2. GAN Based Approaches <br>
+     This type of approach... Some examples are P-Forcing and T-Forcing algorithms. 
+  3. GAN Based Approaches <br>
 
 The following table is adapted from Yoon et. al describing the differences between autoregressive recurrent networks, GAN based approaches, and TimeGAN. 
 <img width="816" alt="image" src="https://user-images.githubusercontent.com/78554498/110209805-146d6b80-7e54-11eb-9e7a-f469ea20900c.png">
 
+Yoon et. al also investigated the performance of their TimeGAN model compared to other architectures for generating synthetic time series data. <br> img width="758" alt="image" src="https://user-images.githubusercontent.com/78554498/110211139-d0ca3000-7e5a-11eb-8bd0-b51d8b7b35f5.png">
 
 
 **FINISH THIS**
