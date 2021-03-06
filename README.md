@@ -129,6 +129,8 @@ In order to generate the next synthetic vector, the generator (,the autoregressi
 
 It will not be sufficient to rely only on the discriminator’s binary adversarial feedback. This is because we need more incentive for the generator to capture the conditional distribution in the data in a stepwise manner. An additional loss is needed to future penalize the model in the learning process. We need to apply a maximum likelihood to yield the supervised loss :
 
+![mathpix 2021-03-06 13-34-42](https://user-images.githubusercontent.com/20098178/110219051-91173e80-7e82-11eb-963b-18adc55eb1e7.png)
+
 
 
 ## How to train the generator
