@@ -24,7 +24,7 @@ Through this tutorial you will learn:
 ## Introduction to using GANs to generate temporal data
 There is a need to generate synthetic time series data sets to augment these datasets for applications in financial trading and the medical field [2]. Data augmentation of time series data sets could be especially useful in scenarios where privacy is an issue and to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
 
-#### Previous attempts to generate synthetic sequential data
+### Previous attempts to generate synthetic temporal data
 There have been other attempts to generate synthetic temporal data. In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
   1. Autoregressive Recurrent Networks <br>
      This type of approach... Some examples are P-Forcing and T-Forcing algorithms. 
@@ -52,10 +52,10 @@ Prior to training our TimeGAN model, we preprocessed the data following the meth
     
     #Obtains and stores the historical price dataset
     def get_wiki_prices():
-        #Downloaded from https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY> and saved as 'Wiki.csv'
+        #Downloaded from https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=<API_KEY> and saved as 'wiki_stocks.csv'
       
 
-        df = pd.read_csv('Wiki.csv',
+        df = pd.read_csv('wiki_stocks.csv',
                          parse_dates=['date'],
                          index_col=['date', 'ticker'],
                          infer_datetime_format=True) 
@@ -133,14 +133,14 @@ Now we want to assess the quality of this synthetic data to evaluate our replica
   2. Fidelity
   3. Usefulness 
  
-#### Diversity
+### Diversity
 First, we will investigate the diversity of the dataset. The main question we are asking here is: does the synthetic data distribution match the distribution of the real data? 
 
 
-#### Fidelity 
+### Fidelity 
 Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. 
 
-#### Usefulness
+### Usefulness
 Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. 
 
 
