@@ -136,9 +136,105 @@ It will not be sufficient to rely only on the discriminator’s binary adversari
 
 ![gan_loss](https://user-images.githubusercontent.com/20098178/110219087-b7d57500-7e82-11eb-94ee-de5b1e98b067.png)
 
-## How to train the generator
-
 ## How to train the discriminator
+For this section and the next, we will go over the two autoencoder, the two adversarial network elements, and the supervisor that makes the generator learn the temporal elements of the time-series data. First we will need to create RNNs with 24 GRU units each:
+
+    def make_rnn(n_layers, hidden_units, output_units, name):
+    return Sequential([GRU(units=hidden_units,
+                           return_sequences=True,
+                           name=f'GRU_{i + 1}') for i in range(n_layers)] +
+                      [Dense(units=output_units,
+                             activation='sigmoid',
+                             name='OUT')], name=name)
+
+After creating the autoencoder and instantiate the embedder and the recovery networks, we create the generator, the discriminator, and the supervisor:
+
+    generator = make_rnn(n_layers=3, 
+                     hidden_units=hidden_dim, 
+                     output_units=hidden_dim, 
+                     name='Generator')
+    discriminator = make_rnn(n_layers=3, 
+                         hidden_units=hidden_dim, 
+                         output_units=1, 
+                         name='Discriminator')
+    supervisor = make_rnn(n_layers=2, 
+                      hidden_units=hidden_dim, 
+                      output_units=hidden_dim, 
+                      name='Supervisor')
+
+We then use the autoencoder to integrate both the embedder and recovery functions:
+
+    H = embedder(X)
+    X_tilde = recovery(H)
+    autoencoder = Model(inputs=X,
+                    outputs=X_tilde,
+                    name='Autoencoder')
+    autoencoder.summary()
+    Model: "Autoencoder"
+    _________________________________________________________________
+    Layer (type)                 Output Shape              Param #   
+    =================================================================
+    RealData (InputLayer)        [(None, 24, 86)]           0         
+    _________________________________________________________________
+    Embedder (Sequential)        (None, 24, 24)            15864     
+    _________________________________________________________________
+    Recovery (Sequential)        (None, 24, 86)            12950     
+    =================================================================
+    Trainable params: 28,814
+
+This sets us up to instantiate the optimizer and define the training steps:
+
+    supervisor_optimizer = Adam()
+    @tf.function
+    def train_supervisor(x):
+        with tf.GradientTape() as tape:
+            h = embedder(x)
+            h_hat_supervised = supervisor(h)
+            g_loss_s = mse(h[:, 1:, :], h_hat_supervised[:, 1:, :])
+        var_list = supervisor.trainable_variables
+        gradients = tape.gradient(g_loss_s, var_list)
+        supervisor_optimizer.apply_gradients(zip(gradients, var_list))
+        return g_loss_s
+
+## How to train the generator
+This phase is the culmination of all four network components. We use all the loss functions and base componenets to achieve the joint learning of laten space embedding, transition, dynamics, and synthetic data generation.
+
+TimeGan includes a moment loss to ensure that the generator truly creates viable time-series data. It does this by penalizing the model when the mean and variance of the synthetic data strays from the real data:
+
+    def get_generator_moment_loss(y_true, y_pred):
+    y_true_mean, y_true_var = tf.nn.moments(x=y_true, axes=[0])
+    y_pred_mean, y_pred_var = tf.nn.moments(x=y_pred, axes=[0])
+    g_loss_mean = tf.reduce_mean(tf.abs(y_true_mean - y_pred_mean))
+    g_loss_var = tf.reduce_mean(tf.abs(tf.sqrt(y_true_var + 1e-6) - 
+                                       tf.sqrt(y_pred_var + 1e-6)))
+    return g_loss_mean + g_loss_var
+    
+As mentioned earlier, the trianing steps of the generator uses all four loss functions and combines all the network components to achieve the desired learning:
+
+    @tf.function
+    def train_generator(x, z):
+        with tf.GradientTape() as tape:
+            y_fake = adversarial_supervised(z)
+            generator_loss_unsupervised = bce(y_true=tf.ones_like(y_fake),
+                                              y_pred=y_fake)
+            y_fake_e = adversarial_emb(z)
+            generator_loss_unsupervised_e = bce(y_true=tf.ones_like(y_fake_e),
+                                                y_pred=y_fake_e)
+            h = embedder(x)
+            h_hat_supervised = supervisor(h)
+            generator_loss_supervised = mse(h[:, 1:, :], 
+                                            h_hat_supervised[:, 1:, :])
+            x_hat = synthetic_data(z)
+            generator_moment_loss = get_generator_moment_loss(x, x_hat)
+            generator_loss = (generator_loss_unsupervised +
+                              generator_loss_unsupervised_e +
+                              100 * tf.sqrt(generator_loss_supervised) +
+                              100 * generator_moment_loss)
+        var_list = generator.trainable_variables + supervisor.trainable_variables
+        gradients = tape.gradient(generator_loss, var_list)
+        generator_optimizer.apply_gradients(zip(gradients, var_list))
+        return (generator_loss_unsupervised, generator_loss_supervised,
+                generator_moment_loss)
 
 ## Evaluation of training results
 After training the model, we were able to generate synthetic stock price data for 84 tickers. 
