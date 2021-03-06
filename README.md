@@ -79,6 +79,8 @@ The first generation of generative architectures had 2 components that literally
 
 The goal is to map from a latent space back to the original domain. The generator aims to stump the discriminator by generating images that are so similar to the original class of images that they could have been drawn from the same dataset.
 
+![gan_arch](https://user-images.githubusercontent.com/20098178/110197437-44474f80-7e11-11eb-848c-87ac07044a69.png)
+
 
 ## Description of loss functions
 
