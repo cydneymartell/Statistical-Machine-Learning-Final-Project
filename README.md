@@ -89,7 +89,7 @@ The autoencoder’s embedding and recovery functions provide the mappings betwee
 
 In the case of the generator, it first outputs into the embedding space, then produces the synthetic output directly in the feature space. Below is the generator function g :
 
-
+![mathpix 2021-03-06 00-24-06](https://user-images.githubusercontent.com/20098178/110198176-1d3f4c80-7e16-11eb-80ef-993f64ed9518.png)
 
 
 
