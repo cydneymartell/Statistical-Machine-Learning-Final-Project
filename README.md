@@ -25,9 +25,9 @@ Through this tutorial you will learn:
 There is a need to generate synthetic time series data sets to augment datasets for applications in financial trading [2]. One of the major reasons financial training models fail in practice is because of the scarcity of historical time series data. Data augmentation of time series data sets could be especially useful to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. It could also be useful in scenarios where privacy is an issue [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
 
 ### Previous attempts to generate synthetic temporal data
-There have been other attempts to generate synthetic temporal data. In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
-  1. Recurrent Neural Networks with Variational Autoencoder <br>
-  These models have been useful in forecasting time series data so they have been leveraged to try to generate synthetic time series data. However, these models are inherently deterministic and not generative. There are limitations to these models
+There have been other attempts to generate synthetic temporal data. In the manuscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
+  1. Autoregressive Approaches <br>
+   Recurrent Neural Networks, specifically, long-short term memory have been used to generate high quality sequential text data [4]. However, these models are inherently deterministic and not generative. There are limitations to these models
   ![image](https://user-images.githubusercontent.com/78554498/110222067-4fdc5a00-7e95-11eb-878e-3953a1bfe218.png)
 
   2. GAN Based Approaches <br>
@@ -325,3 +325,4 @@ Lastly, we will look at the usefulness of the synthetic data. So, we want to kno
 [1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf <br>
 [2] https://arxiv.org/pdf/2002.12478.pdf <br>
 [3] http://www.blackarbs.com/synthetic-data
+[4] https://arxiv.org/pdf/1308.0850.pdf
