@@ -39,7 +39,7 @@ In 2019, Yoon et al., developed the TimeGAN framework to help address the limita
 
 Yoon et al. also investigated the performance of their TimeGAN model compared to other architectures for generating synthetic time series data. They tested these models on four different types of datasets (sines, stocks, energy, and events) and then evaluated the performance of these models. The table below from Yoon et al. shows the performance of these models based on a discriminative and predictive score. The discriminative score indicates how similar the synthetic and real data are and the predictive score indicates how useful the synthetic data was compared to the real in training a predictive model. For both of these scores the lower the value the better. As you can see in the results from Yoon et al., the TimeGAN architecture produced the best synthetic data compared to the recurrent network and recurrent GAN models.  
 <br> 
-![image](https://user-images.githubusercontent.com/78554498/110222011-f8d68500-7e94-11eb-9f1c-6eb56a780cd3.png)width="200"
+<img width="626" alt="image" src="https://user-images.githubusercontent.com/78554498/110222700-c7ac8380-7e99-11eb-8eb8-6cc34a9895e9.png">
 
 
 
