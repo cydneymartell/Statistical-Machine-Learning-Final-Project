@@ -125,6 +125,10 @@ The architecture embedding and recovery functions of the TimeGan architecture ne
 
 In order to generate the next synthetic vector, the generator (,the autoregressive part of the architecture,) takes in a synthetic embedding. This allows the unsupervised loss to be computed upon by the gradients. This allows the maximization of the discriminator and the minimization of the generator’s likelihood of providing accurate classifications for both the training data and synthetic output from the generator. The equation below makes this clear:
 
+![mathpix 2021-03-06 13-33-22](https://user-images.githubusercontent.com/20098178/110218968-16e6ba00-7e82-11eb-9338-3d065ee90b63.png)
+
+It will not be sufficient to rely only on the discriminator’s binary adversarial feedback. This is because we need more incentive for the generator to capture the conditional distribution in the data in a stepwise manner. An additional loss is needed to future penalize the model in the learning process. We need to apply a maximum likelihood to yield the supervised loss :
+
 
 
 ## How to train the generator
