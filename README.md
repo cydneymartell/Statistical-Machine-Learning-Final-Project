@@ -27,6 +27,9 @@ There is a need to generate synthetic time series data sets to augment these dat
 In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data.
   1. Autoregressive Recurrent Networks
   2. GAN Based Approaches <br>
+
+<img width="677" alt="image" src="https://user-images.githubusercontent.com/78554498/110209629-1256dd00-7e53-11eb-94e1-af811bd48ddf.png">
+
 **FINISH THIS**
 
 ## Historical stock prices dataset
