@@ -95,6 +95,9 @@ In the case of the generator, it first outputs into the embedding space, then pr
 
 ![mathpix 2021-03-06 00-24-06](https://user-images.githubusercontent.com/20098178/110198176-1d3f4c80-7e16-11eb-80ef-993f64ed9518.png)
 
+Below is the discrimination function d :
+
+![mathpix 2021-03-06 01-04-59](https://user-images.githubusercontent.com/20098178/110198439-19142e80-7e18-11eb-8ebc-0467b3baa7b9.png)
 
 
 ![gan_arch](https://user-images.githubusercontent.com/20098178/110197437-44474f80-7e11-11eb-848c-87ac07044a69.png)
