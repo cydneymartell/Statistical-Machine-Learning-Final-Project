@@ -22,33 +22,38 @@ Through this tutorial you will learn:
 9. Conclusions and future applications
 
 ## Introduction to using GANs to generate temporal data
-There is a need to generate synthetic time series data sets to augment these datasets for applications in financial trading and the medical field [2]. Data augmentation of time series data sets could be especially useful in scenarios where privacy is an issue and to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
+There is a need to generate synthetic time series data sets to augment datasets for applications in financial trading and the medical field [2]. Data augmentation of time series data sets could be especially useful to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. It could also be useful in scenarios where privacy is an issue [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
 
 ### Previous attempts to generate synthetic temporal data
 There have been other attempts to generate synthetic temporal data. In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
-  1. Autoregressive Recurrent Networks <br>
-     This type of approach... Some examples are P-Forcing and T-Forcing algorithms. 
-  2. GAN Based Approaches <br>
+  1. Recurrent Neural Networks with Variational Autoencoder <br>
+  These models have been useful in forecasting time series data so they have been leveraged to try to generate synthetic time series data. However, these models are inherently deterministic and not generative. There are limitations eo these models
+  ![image](https://user-images.githubusercontent.com/78554498/110222067-4fdc5a00-7e95-11eb-878e-3953a1bfe218.png)
 
+  2. GAN Based Approaches <br>
+  Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed was C-RNN-GAN which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator.   through the development of continuous recurrent wiht adversarial training (C-RNN_GAN) and recurrent conditional GANs (RNN-GAN). These architectures seek to capture the . 
+
+
+#### Advantages of using TimeGAN
+In 2019, Yoon et. al, developed the TimeGAN framework to help address the limitations with previous models explained above. This novel model combined the unsupervised adversarial learning present in GAN architecture with supervised training present in autoregressive models to generate realistic time-series data. The section of this tutorial on TimeGAN architechture will go more in depth into the characteristics of this model. 
 
 The following table is adapted from Yoon et. al describing the differences between autoregressive recurrent networks, GAN based approaches, and TimeGAN. 
 <img width="816" alt="image" src="https://user-images.githubusercontent.com/78554498/110209805-146d6b80-7e54-11eb-9e7a-f469ea20900c.png">
 
-#### Advantages of using TimeGAN
-
 Yoon et. al also investigated the performance of their TimeGAN model compared to other architectures for generating synthetic time series data. <br> 
-<img width="758" alt="image" src="https://user-images.githubusercontent.com/78554498/110211231-3c140200-7e5b-11eb-9a6f-d32ade0d1908.png">
+![image](https://user-images.githubusercontent.com/78554498/110222011-f8d68500-7e94-11eb-9f1c-6eb56a780cd3.png)
+
 
 
 **FINISH THIS**
 
 ## Historical stock prices dataset
-We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected everyday from July 6, 2015 to 2018. While this set contains data for 3,000 US companies,  we decided to select 86 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found in the file tickers.txt. 
+We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected between  July 6, 2015 to March 7, 2018 for a total of 590 observations per ticker. While this set contains data for 3,000 US companies,  we decided to select 86 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found in the file tickers.txt. 
 
-The following image shows an example of the historical price data for 8 of the tickers. 
+The following image shows an example of the normalized historical ajusted close price data for 8 of the tickers. In these plots you can see there is a lot of variation in the data. There are also a in adjusted close price for the different tickers. The correlation coefficients for th e84 tickers range from -0.88 for CVS to 0.97 for LMT.  
 ![image](https://user-images.githubusercontent.com/78554498/110181326-23f7a080-7dd1-11eb-83ba-58be8b3b13c6.png)
 
-Prior to training our TimeGAN model, we preprocessed the data following the methods of preprocess used by Yoon et. al. We used MinMaxScaler to scale the raw price series data between 0 and 1. We then created rolling window sequences with an overlap of 24 data points as used by Yoon et al. 
+Prior to training our TimeGAN model, we preprocessed the data following the methods of preprocess used by Yoon et. al. We used MinMaxScaler to scale the raw price series data between 0 and 1. We then created rolling window sequences with an overlap of 24 data points for each of the 86 tickers as used by Yoon et al. 
     
     #Obtains and stores the historical price dataset
     def get_wiki_prices():
@@ -133,105 +138,9 @@ It will not be sufficient to rely only on the discriminator’s binary adversari
 
 ![gan_loss](https://user-images.githubusercontent.com/20098178/110219087-b7d57500-7e82-11eb-94ee-de5b1e98b067.png)
 
-## How to train the discriminator
-For this section and the next, we will go over the two autoencoder, the two adversarial network elements, and the supervisor that makes the generator learn the temporal elements of the time-series data. First we will need to create RNNs with 24 GRU units each:
-
-    def make_rnn(n_layers, hidden_units, output_units, name):
-    return Sequential([GRU(units=hidden_units,
-                           return_sequences=True,
-                           name=f'GRU_{i + 1}') for i in range(n_layers)] +
-                      [Dense(units=output_units,
-                             activation='sigmoid',
-                             name='OUT')], name=name)
-
-After creating the autoencoder and instantiate the embedder and the recovery networks, we create the generator, the discriminator, and the supervisor:
-
-    generator = make_rnn(n_layers=3, 
-                     hidden_units=hidden_dim, 
-                     output_units=hidden_dim, 
-                     name='Generator')
-    discriminator = make_rnn(n_layers=3, 
-                         hidden_units=hidden_dim, 
-                         output_units=1, 
-                         name='Discriminator')
-    supervisor = make_rnn(n_layers=2, 
-                      hidden_units=hidden_dim, 
-                      output_units=hidden_dim, 
-                      name='Supervisor')
-
-We then use the autoencoder to integrate both the embedder and recovery functions:
-
-    H = embedder(X)
-    X_tilde = recovery(H)
-    autoencoder = Model(inputs=X,
-                    outputs=X_tilde,
-                    name='Autoencoder')
-    autoencoder.summary()
-    Model: "Autoencoder"
-    _________________________________________________________________
-    Layer (type)                 Output Shape              Param #   
-    =================================================================
-    RealData (InputLayer)        [(None, 24, 86)]           0         
-    _________________________________________________________________
-    Embedder (Sequential)        (None, 24, 24)            15864     
-    _________________________________________________________________
-    Recovery (Sequential)        (None, 24, 86)            12950     
-    =================================================================
-    Trainable params: 28,814
-
-This sets us up to instantiate the optimizer and define the training steps:
-
-    supervisor_optimizer = Adam()
-    @tf.function
-    def train_supervisor(x):
-        with tf.GradientTape() as tape:
-            h = embedder(x)
-            h_hat_supervised = supervisor(h)
-            g_loss_s = mse(h[:, 1:, :], h_hat_supervised[:, 1:, :])
-        var_list = supervisor.trainable_variables
-        gradients = tape.gradient(g_loss_s, var_list)
-        supervisor_optimizer.apply_gradients(zip(gradients, var_list))
-        return g_loss_s
-
 ## How to train the generator
-This phase is the culmination of all four network components. We use all the loss functions and base componenets to achieve the joint learning of laten space embedding, transition, dynamics, and synthetic data generation.
 
-TimeGan includes a moment loss to ensure that the generator truly creates viable time-series data. It does this by penalizing the model when the mean and variance of the synthetic data strays from the real data:
-
-    def get_generator_moment_loss(y_true, y_pred):
-    y_true_mean, y_true_var = tf.nn.moments(x=y_true, axes=[0])
-    y_pred_mean, y_pred_var = tf.nn.moments(x=y_pred, axes=[0])
-    g_loss_mean = tf.reduce_mean(tf.abs(y_true_mean - y_pred_mean))
-    g_loss_var = tf.reduce_mean(tf.abs(tf.sqrt(y_true_var + 1e-6) - 
-                                       tf.sqrt(y_pred_var + 1e-6)))
-    return g_loss_mean + g_loss_var
-    
-As mentioned earlier, the trianing steps of the generator uses all four loss functions and combines all the network components to achieve the desired learning:
-
-    @tf.function
-    def train_generator(x, z):
-        with tf.GradientTape() as tape:
-            y_fake = adversarial_supervised(z)
-            generator_loss_unsupervised = bce(y_true=tf.ones_like(y_fake),
-                                              y_pred=y_fake)
-            y_fake_e = adversarial_emb(z)
-            generator_loss_unsupervised_e = bce(y_true=tf.ones_like(y_fake_e),
-                                                y_pred=y_fake_e)
-            h = embedder(x)
-            h_hat_supervised = supervisor(h)
-            generator_loss_supervised = mse(h[:, 1:, :], 
-                                            h_hat_supervised[:, 1:, :])
-            x_hat = synthetic_data(z)
-            generator_moment_loss = get_generator_moment_loss(x, x_hat)
-            generator_loss = (generator_loss_unsupervised +
-                              generator_loss_unsupervised_e +
-                              100 * tf.sqrt(generator_loss_supervised) +
-                              100 * generator_moment_loss)
-        var_list = generator.trainable_variables + supervisor.trainable_variables
-        gradients = tape.gradient(generator_loss, var_list)
-        generator_optimizer.apply_gradients(zip(gradients, var_list))
-        return (generator_loss_unsupervised, generator_loss_supervised,
-                generator_moment_loss)
+## How to train the discriminator
 
 ## Evaluation of training results
 After training the model, we were able to generate synthetic stock price data for 84 tickers. 
