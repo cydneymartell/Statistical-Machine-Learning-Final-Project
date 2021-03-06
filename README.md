@@ -208,6 +208,15 @@ Next, we will investigate the fidelity of the dataset. Primarly we want to know,
 
 First, we had to process the data to separate it into a training set and a test set. 
 
+    real_data = get_real_data()
+    real_data = np.array(real_data)[:len(synthetic_data)]
+    
+    #Separates the dataset to be 80% training data and 20% testing data
+    n_series = real_data.shape[0]
+    idx = np.arange(n_series)
+    n_train = int(.8*n_series)
+    train_idx = idx[:n_train]
+    test_idx = idx[n_train:]
 We then trained a classifier 
 
 ### Usefulness
