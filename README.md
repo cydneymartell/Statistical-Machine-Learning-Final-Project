@@ -35,12 +35,9 @@ There have been other attempts to generate synthetic temporal data. In the mausc
 
 
 #### Advantages of using TimeGAN
-In 2019, Yoon et. al, developed the TimeGAN framework to help address the limitations with previous models explained above. This novel model combined the unsupervised adversarial learning present in GAN architecture with supervised training present in autoregressive models to generate realistic time-series data. The section of this tutorial on TimeGAN architechture will go more in depth into the characteristics of this model. 
+In 2019, Yoon et al., developed the TimeGAN framework to help address the limitations with previous models explained above. This novel model combined the unsupervised adversarial learning present in GAN architecture with supervised training present in autoregressive models to generate realistic time-series data. The section of this tutorial on TimeGAN architechture will go more in depth into the characteristics of this model. 
 
-The following table is adapted from Yoon et. al describing the differences between autoregressive recurrent networks, GAN based approaches, and TimeGAN. 
-<img width="816" alt="image" src="https://user-images.githubusercontent.com/78554498/110209805-146d6b80-7e54-11eb-9e7a-f469ea20900c.png">
-
-Yoon et. al also investigated the performance of their TimeGAN model compared to other architectures for generating synthetic time series data. <br> 
+Yoon et al. also investigated the performance of their TimeGAN model compared to other architectures for generating synthetic time series data. They tested these models on four different types of datasets and then evaluated the performance of these models. The table below from Yoon et al. shows the performance of these models based on a discriminative and predictive score. The discriminative score indicates how similar the synthetic and real data are and the predictive score indicates how useful the synthetic data was compared to the real in training a predictive model. For both of these scores the lower the value the better. As you can see in the results from Yoon et al., the TimeGAN architecture produced the best synthetic data compared to the recurrent network and recurrent GAN models.  <br> 
 ![image](https://user-images.githubusercontent.com/78554498/110222011-f8d68500-7e94-11eb-9f1c-6eb56a780cd3.png)
 
 
