@@ -83,7 +83,11 @@ The goal is to map from a latent space back to the original domain. The generato
 
 Harkening back to what we said about the intricacies of the new crop of generative models, the TimeGan architecture is a testament to this fact. Consisting of four network modules, TimeGan is evenly split into an autoencoding component and adversarial component. With the autoencoder consisting of an embedding function and a recovery function. While the adversarial component comprises a sequence generator and a sequence discriminator.
 
-The autoencoder’s embedding and recovery functions provide the mappings between the feature and latent space. Via lower-dimensional representations, the autoencoder allows the adversarial network to learn some underlying temporal dynamic of the data. Below is the embedding function e :
+The autoencoder’s embedding and recovery functions provide the mappings between the feature and latent space. Via lower-dimensional representations, the autoencoder allows the adversarial network to learn some underlying temporal dynamic of the data. Below is the embedding function e : 
+
+![mathpix 2021-03-05 23-36-48](https://user-images.githubusercontent.com/20098178/110198066-50cda700-7e15-11eb-91bc-ba55ab3b2faf.png)
+
+In the case of the generator, it first outputs into the embedding space, then produces the synthetic output directly in the feature space. Below is the generator function g :
 
 
 
