@@ -28,7 +28,10 @@ In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to
   1. Autoregressive Recurrent Networks
   2. GAN Based Approaches <br>
 
-<img width="677" alt="image" src="https://user-images.githubusercontent.com/78554498/110209629-1256dd00-7e53-11eb-94e1-af811bd48ddf.png">
+The following table is adapted from Yoon et. al describing the differences between autoregressive recurrent networks, GAN based approaches, and TimeGAN. 
+<img width="816" alt="image" src="https://user-images.githubusercontent.com/78554498/110209805-146d6b80-7e54-11eb-9e7a-f469ea20900c.png">
+
+
 
 **FINISH THIS**
 
