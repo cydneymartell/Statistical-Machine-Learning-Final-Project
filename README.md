@@ -27,11 +27,11 @@ There is a need to generate synthetic time series data sets to augment datasets 
 ### Previous attempts to generate synthetic temporal data
 There have been other attempts to generate synthetic temporal data. In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
   1. Recurrent Neural Networks with Variational Autoencoder <br>
-  These models have been useful in forecasting time series data so they have been leveraged to try to generate synthetic time series data. However, these models are inherently deterministic and not generative. There are limitations eo these models
+  These models have been useful in forecasting time series data so they have been leveraged to try to generate synthetic time series data. However, these models are inherently deterministic and not generative. There are limitations to these models
   ![image](https://user-images.githubusercontent.com/78554498/110222067-4fdc5a00-7e95-11eb-878e-3953a1bfe218.png)
 
   2. GAN Based Approaches <br>
-  Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed was C-RNN-GAN which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator.   through the development of continuous recurrent wiht adversarial training (C-RNN_GAN) and recurrent conditional GANs (RNN-GAN). These architectures seek to capture the . 
+  Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GANe with conditional information. 
 
 
 #### Advantages of using TimeGAN
