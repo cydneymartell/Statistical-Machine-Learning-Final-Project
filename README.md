@@ -119,6 +119,9 @@ Below is the discrimination function d :
 
 
 ## Description of loss functions
+The architecture embedding and recovery functions of the TimeGan architecture needs to facilitate accurate reconstruction of the original data from their latent representations. This provides the reversible mapping capabilities between the feature and latent spaces. As a result, the first objective function will be the reconstruction loss below:
+
+
 
 ## How to train the generator
 
