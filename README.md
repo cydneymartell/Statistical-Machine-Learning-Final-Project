@@ -22,7 +22,7 @@ Through this tutorial you will learn:
 9. Conclusions and future applications
 
 ## Introduction to using GANs to generate temporal data
-There is a need to generate synthetic time series data sets to augment datasets for applications in financial trading and the medical field [2]. Data augmentation of time series data sets could be especially useful to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. It could also be useful in scenarios where privacy is an issue [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
+There is a need to generate synthetic time series data sets to augment datasets for applications in financial trading [2]. One of the major reasons financial training models fail in practice is because of the scarcity of historical time series data. Data augmentation of time series data sets could be especially useful to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. It could also be useful in scenarios where privacy is an issue [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
 
 ### Previous attempts to generate synthetic temporal data
 There have been other attempts to generate synthetic temporal data. In the mauscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
@@ -31,7 +31,7 @@ There have been other attempts to generate synthetic temporal data. In the mausc
   ![image](https://user-images.githubusercontent.com/78554498/110222067-4fdc5a00-7e95-11eb-878e-3953a1bfe218.png)
 
   2. GAN Based Approaches <br>
-  Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GANe with conditional information. 
+  Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. 
 
 
 #### Advantages of using TimeGAN
@@ -150,8 +150,45 @@ Now we want to assess the quality of this synthetic data to evaluate our replica
   3. Usefulness 
  
 ### Diversity
-First, we will investigate the diversity of the dataset. The main question we are asking here is: does the synthetic data distribution match the distribution of the real data? 
+First, we will investigate the diversity of the dataset. The main question we are asking here is: does the synthetic data distribution match the distribution of the real data? We assess diversity by using a qualitative approach of dimensionality reduction. We used two different methods: principle component analysis (PCA) and t-distributed stochastic neighbor embedding (t-SNE). 
 
+    #Imports the Necessary Libraries for TSNE and PCA
+    from sklearn.manifold import TSNE
+    from sklearn.decomposition import PCA
+    
+    #Does two component PCA on the real and the synthetic data
+    pca = PCA(n_components=2)
+    pca.fit(real_sample_2d)
+    pca_real = (pd.DataFrame(pca.transform(real_sample_2d)).assign(Data='Real'))
+    pca_synthetic = (pd.DataFrame(pca.transform(synthetic_sample_2d)).assign(Data='Synthetic'))
+    pca_result = pca_real.append(pca_synthetic).rename(columns={0: '1st Component', 1: '2nd Component'})
+
+
+    #Does t-SNE on the real and synthetic data 
+    tsne_data = np.concatenate((real_sample_2d, synthetic_sample_2d), axis=0)
+    tsne = TSNE(n_components=2, verbose=1, perplexity=40)
+    tsne_result = tsne.fit_transform(tsne_data)
+ 
+ We then plotted the results of the dimensionality reduction analysis. 
+ 
+    #Plots the PCA Results
+    fig, axes = plt.subplots(ncols=2, figsize=(14, 5))
+    sns.scatterplot(x='1st Component', y='2nd Component', data=pca_result, hue='Data', style='Data', ax=axes[0])
+    sns.despine()
+    axes[0].set_title('PCA Result')
+    
+    #Plots the t-SNE results
+    sns.scatterplot(x='X', y='Y', data=tsne_result, hue='Data', style='Data', ax=axes[1])
+    sns.despine()
+    for i in [0, 1]:
+        axes[i].set_xticks([])
+        axes[i].set_yticks([])
+    axes[1].set_title('t-SNE Result')
+    
+    fig.suptitle('Assessing Diversity: Qualitative Comparison of Real and Synthetic Data Distributions', fontsize=14)
+    fig.tight_layout()
+    fig.subplots_adjust(top=.88);
+    
 
 ### Fidelity 
 Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. 
