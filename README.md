@@ -131,7 +131,7 @@ It will not be sufficient to rely only on the discriminator’s binary adversari
 
 ![mathpix 2021-03-06 13-34-42](https://user-images.githubusercontent.com/20098178/110219051-91173e80-7e82-11eb-963b-18adc55eb1e7.png)
 
-
+![gan_loss](https://user-images.githubusercontent.com/20098178/110219087-b7d57500-7e82-11eb-94ee-de5b1e98b067.png)
 
 ## How to train the generator
 
