@@ -79,7 +79,7 @@ The first generation of generative architectures had 2 components that literally
 
 The goal is to map from a latent space back to the original domain. The generator aims to stump the discriminator by generating images that are so similar to the original class of images that they could have been drawn from the same dataset.
 
-![gedl_0407](https://user-images.githubusercontent.com/20098178/110197799-9f7a4180-7e13-11eb-8ed4-64d04ba7d876.png)
+![gedl_0407](https://user-images.githubusercontent.com/20098178/110197863-ef590880-7e13-11eb-84c3-a94cb5f97cce.png)
 
 Harkening back to what we said about the intricacies of the new crop of generative models, the TimeGan architecture is a testament to this fact. Consisting of four network modules, TimeGan is evenly split into an autoencoding component and adversarial component. With the autoencoder consisting of an embedding function and a recovery function. While the adversarial component comprises a sequence generator and a sequence discriminator.
 
