@@ -191,7 +191,11 @@ First, we will investigate the diversity of the dataset. The main question we ar
     
 
 ### Fidelity 
-Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. 
+Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. To test this we trained a classifier to distinguish between real and fake data and then evaluated the performance of this classifier. If the synthetic data has high fidelity then the classifier should be unable to distinguish between the datasets and would have a low performance score. 
+
+First, we had to process the data to separate it into a training set and a test set. 
+
+We then trained a classifier 
 
 ### Usefulness
 Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. 
