@@ -73,6 +73,12 @@ Prior to training our TimeGAN model, we preprocessed the data following the meth
          data.append(scaled_data[i:i + seq_len])
 
 ## Overview of TimeGAN architecture
+Generative Adversarial Networks have come a long way since their initial unveiling by Ian Goodfellow of Google Brain at the 2016 NeurIPS conference. There have been countless iterations of GANs with just as many intricate architectures to match. GANs has become a staple in the machine learning arena, not only for its awe inspiring results, but also for its sheer utility.
+
+The first generation of generative architectures had 2 components that literally “duked it out” in a sort of computational game of deception. One of its components, the discriminator, is nothing more than a deep supervised learning classifier that is well known and understood by anyone that has dabbled in any capacity in ML. The other component, the generator, is more of an enigma (,at least during its inauguration,) due to its relative complexity. The generator, unlike its discriminatory counterpart, takes in a vector drawn from a multivariate standard normal distribution. For the initiated, this is no different from the decoder of a variational autoencoder.
+
+The goal is to map from a latent space back to the original domain. The generator aims to stump the discriminator by generating images that are so similar to the original class of images that they could have been drawn from the same dataset.
+
 
 ## Description of loss functions
 
