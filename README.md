@@ -27,12 +27,13 @@ There is a need to generate synthetic time series data sets to augment datasets 
 ### Previous attempts to generate synthetic temporal data
 There have been other attempts to generate synthetic temporal data. In the manuscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
    1. Autoregressive Recurrent Network Approaches <br>
+   
       Recurrent Neural Networks, specifically, long-short term memory paired with variational autoencoders have been used to generate high quality sequential  text data [1],[4]. While these models do well learning stepwise temporal dynamics, the main limitation is these models are learning variability from the conditional output probability as described by the equation below. Therefore, these supervised models are inherently deterministic and not generative. This is a limitation in generating synthetic time series data because it doesnt allow for sampling from a learned training distribution so the generated sequences may not match the underlying training data. For these reasons, RNN based models for sequential data generation have worked well on highly structured text and speech data but this may not translate to less structured time series data. 
    <p align="center">  <img width="128" alt="image" src="https://user-images.githubusercontent.com/78554498/110225143-17924700-7ea8-11eb-8ef6-c81fcb3c9cd7.png"></p> <br> 
    
-   
-   2. GAN Based Approaches <br>
    <img align="right" img width="192" alt="image" src="https://user-images.githubusercontent.com/78554498/110226084-655f7d00-7eb1-11eb-95f2-da9ece1fd7bf.png">
+   2. GAN Based Approaches <br>
+   
    Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. 
   
 
