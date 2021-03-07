@@ -34,7 +34,9 @@ There have been other attempts to generate synthetic temporal data. In the manus
    
    2. GAN Based Approaches <br>
    
-   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. 
+   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. These models directly learn the probability distribution of <img width="100" alt="image" src="https://user-images.githubusercontent.com/78554498/110226324-dc961080-7eb3-11eb-8406-0fc9399cd4af.png">, therefore, they don't do a great job learning the temporal dynamics of the data. 
+
+   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. These models learn the probability distribution of 
   
 
 
@@ -45,9 +47,6 @@ Yoon et al. also investigated the performance of their TimeGAN model compared to
 <br> <p align="center">
 <img width="626" alt="image" src="https://user-images.githubusercontent.com/78554498/110222700-c7ac8380-7e99-11eb-8eb8-6cc34a9895e9.png"> </p>
 
-
-
-**FINISH THIS**
 
 ## Historical stock prices dataset
 We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected between  July 6, 2015 to March 7, 2018 for a total of 590 observations per ticker. While this set contains data for 3,000 US companies,  we decided to select 86 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found in the file tickers.txt. 
