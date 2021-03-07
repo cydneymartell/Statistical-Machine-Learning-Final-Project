@@ -33,7 +33,7 @@ There have been other attempts to generate synthetic temporal data. In the manus
    
    2. GAN Based Approaches <br>
    Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown below in the image adapted from [5]. 
-   <img width="192" alt="image" src="https://user-images.githubusercontent.com/78554498/110226084-655f7d00-7eb1-11eb-95f2-da9ece1fd7bf.png">
+  <img align="right" img width="192" alt="image" src="https://user-images.githubusercontent.com/78554498/110226084-655f7d00-7eb1-11eb-95f2-da9ece1fd7bf.png">
 
 
 
