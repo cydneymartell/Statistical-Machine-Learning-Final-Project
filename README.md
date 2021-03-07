@@ -34,10 +34,7 @@ There have been other attempts to generate synthetic temporal data. In the manus
    
    2. GAN Based Approaches <br>
    
-   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. These models directly learn the probability distribution of <img width="100" alt="image" src="https://user-images.githubusercontent.com/78554498/110226324-dc961080-7eb3-11eb-8406-0fc9399cd4af.png">, therefore, they don't do a great job learning the temporal dynamics of the data. 
-
-   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. These models learn the probability distribution of 
-  
+   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to o generate synthetic temporal data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. Schematics of these architectures are shown to the right in the image adapted from [5]. These models directly learn the probability distribution of <img width="50" alt="image" src="https://user-images.githubusercontent.com/78554498/110226324-dc961080-7eb3-11eb-8406-0fc9399cd4af.png">, therefore, they don't do a great job learning the temporal dynamics of the data. 
 
 
 ### Advantages of using TimeGAN
@@ -304,7 +301,9 @@ First, we will investigate the diversity of the dataset. The main question we ar
     fig.suptitle('Assessing Diversity: Qualitative Comparison of Real and Synthetic Data Distributions', fontsize=14)
     fig.tight_layout()
     fig.subplots_adjust(top=.88);
-    
+   
+   The following plots display the results of dimensionality reduction. 
+<p align="center"> <img width="824" alt="image" src="https://user-images.githubusercontent.com/78554498/110226466-2fbc9300-7eb5-11eb-90a9-cb09c7c48e71.png"> </p>
 
 ### Fidelity 
 Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. To test this we trained a classifier to distinguish between real and fake data and then evaluated the performance of this classifier. If the synthetic data has high fidelity then the classifier should be unable to distinguish between the datasets and would have a low performance score. 
