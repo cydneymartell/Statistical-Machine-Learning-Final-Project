@@ -286,27 +286,7 @@ First, we will investigate the diversity of the dataset. The main question we ar
     tsne = TSNE(n_components=2, verbose=1, perplexity=40)
     tsne_result = tsne.fit_transform(tsne_data)
  
- We then plotted the results of the dimensionality reduction analysis using the code below to look at the overlap of the real and the synthetic data. 
- 
-    #Plots the PCA Results
-    fig, axes = plt.subplots(ncols=2, figsize=(14, 5))
-    sns.scatterplot(x='1st Component', y='2nd Component', data=pca_result, hue='Data', style='Data', ax=axes[0])
-    sns.despine()
-    axes[0].set_title('PCA Result')
-    
-    #Plots the t-SNE results
-    sns.scatterplot(x='X', y='Y', data=tsne_result, hue='Data', style='Data', ax=axes[1])
-    sns.despine()
-    for i in [0, 1]:
-        axes[i].set_xticks([])
-        axes[i].set_yticks([])
-    axes[1].set_title('t-SNE Result')
-    
-    fig.suptitle('Assessing Diversity: Qualitative Comparison of Real and Synthetic Data Distributions', fontsize=14)
-    fig.tight_layout()
-    fig.subplots_adjust(top=.88);
-   
-   The following plots display the results of dimensionality reduction. The results of PCA are on the left and t-SNE is one the right. The real data is shown in purple and the synthetic data shown in black. In both methods of dimensionality reduction, you can see that there is overlap between the real and synthetic data. This indicates that our replicated TimeGAN model was able to generate synthetic historical price data that captures the important features of the real training data. 
+We then plotted the results of the dimensionality reduction analysis to look at the overlap of the real and the synthetic data. The following plots display the results of dimensionality reduction. The results of PCA are on the left and t-SNE is one the right with the real data is shown in purple and the synthetic data shown in black. In both methods of dimensionality reduction, you can see that there is overlap between the real and synthetic data. This indicates that our replicated TimeGAN model was able to generate synthetic historical price data that captures the important features of the real training data. 
 <p align="center"> <img width="824" alt="image" src="https://user-images.githubusercontent.com/78554498/110226466-2fbc9300-7eb5-11eb-90a9-cb09c7c48e71.png"> </p>
 
 ### Fidelity 
@@ -324,8 +304,15 @@ First, we had to process the data to separate it into a training set and a test 
     train_idx = idx[:n_train]
     test_idx = idx[n_train:]
 
+We created a classifier 
 
-We then trained a classifier on a training dataset composed of both real and synthetic data. We used a 
+    ts_classifier = Sequential([GRU(6, input_shape=(24, 86), name='GRU'), Dense(1, activation='sigmoid', name='OUT')], name='Time_Series_Classifier')
+    ts_classifier.compile(loss='binary_crossentropy', optimizer='adam', metrics=[AUC(name='AUC'), 'accuracy'])
+    ts_classifier.summary()
+ <p align="center">   <img width="652" alt="image" src="https://user-images.githubusercontent.com/78554498/110227522-e07b6000-7ebe-11eb-9440-e3a30c638c65.png"> </p>
+
+
+We then trained the classifier on a training dataset composed of both real and synthetic data. We used a 
 
       result = ts_classifier.fit(x=train_data,y=train_labels, validation_data=(test_data, test_labels), epochs=250, batch_size=128, verbose=0)
       
@@ -333,21 +320,42 @@ We then evaluated the classifier on the test dataset composed of both synthetic 
 
     ts_classifier.evaluate(x=test_data, y=test_labels)
     
-Then we plotted the accuracy of the classifier and the area under the ROC curve.  
-<img width="918" alt="image" src="https://user-images.githubusercontent.com/78554498/110226831-e6217780-7eb7-11eb-8e23-27d745e1473b.png">
+Then we plotted the accuracy of the classifier and the area under the ROC curve. 
+sns.set_style('white')
+
+ <p align="center">  <img width="918" alt="image" src="https://user-images.githubusercontent.com/78554498/110226831-e6217780-7eb7-11eb-8e23-27d745e1473b.png"> </p>
 
 ### Usefulness
 Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. 
 
-<img width="935" alt="image" src="https://user-images.githubusercontent.com/78554498/110227211-9b096380-7ebb-11eb-8e49-dc8fbcc6eda5.png">
+    def get_model():
+        model = Sequential([GRU(12, input_shape=(seq_len-1, n_seq)), Dense(86)])
+        model.compile(optimizer=Adam(), loss=MeanAbsoluteError(name='MAE'))
+        return model
+        
+ One model was trained on synthetic data and tested on real data. 
+ 
+    #Training on synthetic, testing on real
+    ts_regression = get_model()
+    synthetic_result = ts_regression.fit(x=synthetic_train,y=synthetic_label, validation_data=(real_test_data, real_test_label),epochs=100,batch_size=128,verbose=0)
+ 
+ Another model was trained on real data and tested on real data. 
+ 
+     ts_regression = get_model()
+     real_result = ts_regression.fit(x=real_train_data,y=real_train_label,validation_data=(real_test_data, real_test_label),epochs=100,batch_size=128,verbose=0)
+ 
+ The performance of these two models was tracked over the epochs and then plotted as shown below. This image shows the log mean squeared error for the model traind on synthetic tested on real (left) and the model trained on real and tested on synthetic (right). 
+ 
+ <p align="center">  <img width="935" alt="image" src="https://user-images.githubusercontent.com/78554498/110227211-9b096380-7ebb-11eb-8e49-dc8fbcc6eda5.png"> </p>
 
 
 
 ## Conclusions and future applications
 
+We replicated the TimeGAN architecture and train it on a different dataset of historical stock price than the authors. The data that we generated using code adapted from Yoon et al. generated high quality synthetic stock price series for 84 tickers. This synthetic data seemed to capture the features of the real data, was indistinguishable from the real data, and training a model on the synthetic data was more useful in solving a predictive task than the real data. These results along with the results in the paper suggest that timeGAN is a promising approach to use for generating synthetic time series data. 
 ## References
 [1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf <br>
 [2] https://arxiv.org/pdf/2002.12478.pdf <br>
-[3] http://www.blackarbs.com/synthetic-data
-[4] https://arxiv.org/pdf/1308.0850.pdf
-[5] https://openreview.net/pdf?id=whySRc6f5g_
+[3] http://www.blackarbs.com/synthetic-data <br>
+[4] https://arxiv.org/pdf/1308.0850.pdf <br>
+[5] https://openreview.net/pdf?id=whySRc6f5g_<br>
