@@ -326,25 +326,26 @@ sns.set_style('white')
  <p align="center">  <img width="918" alt="image" src="https://user-images.githubusercontent.com/78554498/110226831-e6217780-7eb7-11eb-8e23-27d745e1473b.png"> </p>
 
 ### Usefulness
-Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. 
+Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. To do this we generated a sequence prediction model, as shown below, to predict the next time step. The model uses the adam optimizer to minimize the mean absolute error. To compare the synthetic and real data, we will then train this model either on synthetic data or on real data. We will then test the model on a subset of real data. 
 
+    #Sequence prediction model
     def get_model():
         model = Sequential([GRU(12, input_shape=(seq_len-1, n_seq)), Dense(86)])
         model.compile(optimizer=Adam(), loss=MeanAbsoluteError(name='MAE'))
         return model
         
- One model was trained on synthetic data and tested on real data. 
+ One model was trained on synthetic data and tested on real data using the code shown below. The model was trained over 100 epochs.
  
     #Training on synthetic, testing on real
     ts_regression = get_model()
     synthetic_result = ts_regression.fit(x=synthetic_train,y=synthetic_label, validation_data=(real_test_data, real_test_label),epochs=100,batch_size=128,verbose=0)
  
- Another model was trained on real data and tested on real data. 
+ Another model was trained on real data and tested on real data. The model was trained over 100 epochs.  
  
      ts_regression = get_model()
      real_result = ts_regression.fit(x=real_train_data,y=real_train_label,validation_data=(real_test_data, real_test_label),epochs=100,batch_size=128,verbose=0)
  
- The performance of these two models was tracked over the epochs and then plotted as shown below. This image shows the log mean squeared error for the model traind on synthetic tested on real (left) and the model trained on real and tested on synthetic (right). 
+The performance of these two models was tracked over the epochs and then plotted as shown below. This image shows the log mean absolute error for the model traind on synthetic tested on real (left) and the model trained on real and tested on synthetic (right). After 100 epochs the mean absolute error for the model trained on synthetic was 0.06 and the mean absolute error for the model trained on real data was 0.15. This result showed the synthetic data may be useful. For this specific task of predicting the next time step for 84 tickers the model trained on synthetic timeGAN generated data performed slightly better than the same model trained on real data based on the mean absolute error. 
  
  <p align="center">  <img width="935" alt="image" src="https://user-images.githubusercontent.com/78554498/110227211-9b096380-7ebb-11eb-8e49-dc8fbcc6eda5.png"> </p>
 
@@ -353,6 +354,7 @@ Lastly, we will look at the usefulness of the synthetic data. So, we want to kno
 ## Conclusions and future applications
 
 We replicated the TimeGAN architecture and train it on a different dataset of historical stock price than the authors. The data that we generated using code adapted from Yoon et al. generated high quality synthetic stock price series for 84 tickers. This synthetic data seemed to capture the features of the real data, was indistinguishable from the real data, and training a model on the synthetic data was more useful in solving a predictive task than the real data. These results along with the results in the paper suggest that timeGAN is a promising approach to use for generating synthetic time series data. 
+
 ## References
 [1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf <br>
 [2] https://arxiv.org/pdf/2002.12478.pdf <br>
