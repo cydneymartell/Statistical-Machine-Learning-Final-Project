@@ -16,10 +16,10 @@ Through this tutorial you will learn:
 2. Historical stock prices dataset
 3. Overview of TimeGAN architecture
 4. Description of loss functions
-5. How to train the generator
-6. How to train the discriminator
-8. Evaluation of training results
-9. Conclusions and future applications
+5. How to train the discriminator
+6. How to train the generator
+7.  Evaluation of training results
+8.  Conclusions 
 
 ## Introduction to using GANs to generate temporal data
 There is a need to generate synthetic time series data sets to augment datasets for applications in financial trading [2]. One of the major reasons financial training models fail in practice is because of the scarcity of historical time series data. Data augmentation of time series data sets could be especially useful to reduce backtest overfitting in models trained on historical time series data which is scarce [3]. It could also be useful in scenarios where privacy is an issue [3]. Developing a model to generate synthetic time series data is particularly challenging because the model needs to learn both the feature distributions at a specific time point and the dynamics of these features across time. 
@@ -48,6 +48,7 @@ The figure below from Yoon et al. shows dimensionality reduction analysis for re
 <p align="center"> <img width="1212" alt="image" src="https://user-images.githubusercontent.com/78554498/110227342-06a00080-7ebd-11eb-9eca-1ec90bcab162.png">
 </p>
 
+This data shows the usefulness of TimeGAN in generating synthetic data compared to other methods. We then wanted to investigate if we could replicate this architecture and analysis on a dataset of our own. 
 
 ## Historical stock prices dataset
 We trained our replicated TimeGAN architechture on a free dataset of end of day stock prices from https://www.quandl.com/databases/WIKIP/documentation. This is a large dataset that contains the end of the day stock prices collected between  July 6, 2015 to March 7, 2018 for a total of 590 observations per ticker. While this set contains data for 3,000 US companies,  we decided to select 86 tickers from this dataset for our replication of TimeGAN. The list of tickers that we used can be found in the file tickers.txt. 
@@ -347,9 +348,8 @@ The performance of these two models was tracked over the epochs and then plotted
 
 
 
-## Conclusions and future applications
-
-We replicated the TimeGAN architecture and train it on a different dataset of historical stock price than the authors. The data that we generated using code adapted from Yoon et al. generated high quality synthetic stock price series for 84 tickers. This synthetic data seemed to capture the features of the real data, was indistinguishable from the real data, and training a model on the synthetic data was more useful in solving a predictive task than the real data. These results along with the results in the paper suggest that timeGAN is a promising approach to use for generating synthetic time series data. 
+## Conclusions 
+Yoon et al. were able to develop a machine learning architecture that could generate synthetic time series data. This novel approach combined unsupervised adversarial loss of GANs with supervised. The results obtained by Yoon et al. indicated that TimeGAN outperformed other methods for generating synthetic time series data that was diverse, useful and had high fidelity. This result was seen for four different types of data. Following, the impressive results from Yoon et al. we replicated the TimeGAN architecture and train it on a different dataset of historical stock price than the authors. The data that we generated using code adapted from Yoon et al. generated high quality synthetic stock price series for 84 tickers. This synthetic data seemed to capture the features of the real data, was indistinguishable from the real data, and training a model on the synthetic data was more useful in solving a predictive task than the real data. These results along with the results in the paper suggest that timeGAN is a promising approach to use for generating synthetic time series data. It could be useful in the future to test the synthetic data in the context of more complex models and to train the TimeGAN model on higher dimensional data with more complex temporal dynamics. 
 
 ## References
 [1] https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf <br>
