@@ -210,7 +210,7 @@ TimeGan includes a moment loss to ensure that the generator truly creates viable
                                        tf.sqrt(y_pred_var + 1e-6)))
     return g_loss_mean + g_loss_var
     
-As mentioned earlier, the trianing steps of the generator uses all four loss functions and combines all the network components to achieve the desired learning:
+As mentioned earlier, the training steps of the generator uses all four loss functions and combines all the network components to achieve the desired learning:
 
     @tf.function
     def train_generator(x, z):
