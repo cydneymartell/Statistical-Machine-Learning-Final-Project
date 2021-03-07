@@ -28,7 +28,7 @@ There is a need to generate synthetic time series data sets to augment datasets 
 There have been other attempts to generate synthetic temporal data. In the manuscript, Yoon et.al summarize and compare their TimeGAN architecture to other models developed to generate synthetic time series data. They break these other methods down into two categories:
    1. Autoregressive Recurrent Network Approaches <br>
       Recurrent Neural Networks, specifically, long-short term memory paired with variational autoencoders have been used to generate high quality sequential  text data [1],[4]. These models are only learning variability from the conditional output probability as described by the following equation: 
-   <p align="center">  <img width="128" alt="image" src="https://user-images.githubusercontent.com/78554498/110225143-17924700-7ea8-11eb-8ef6-c81fcb3c9cd7.png"></p> 
+   <p align="center">  <img width="128" alt="image" src="https://user-images.githubusercontent.com/78554498/110225143-17924700-7ea8-11eb-8ef6-c81fcb3c9cd7.png"></p> <br>
    Therefore these supervised models are inherently deterministic and not generative. This is a limitation in generating synthetic time series data.  For     these reasons, RNN based models for sequential data generation have worked well on highly structured text and speech data but this may not translate to less structured time series data. 
    <br>
    <br>
