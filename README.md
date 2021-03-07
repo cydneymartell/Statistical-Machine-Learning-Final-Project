@@ -282,7 +282,7 @@ First, we will investigate the diversity of the dataset. The main question we ar
     tsne = TSNE(n_components=2, verbose=1, perplexity=40)
     tsne_result = tsne.fit_transform(tsne_data)
  
- We then plotted the results of the dimensionality reduction analysis. 
+ We then plotted the results of the dimensionality reduction analysis using the code below to look at the overlap of the real and the synthetic data. 
  
     #Plots the PCA Results
     fig, axes = plt.subplots(ncols=2, figsize=(14, 5))
@@ -302,7 +302,7 @@ First, we will investigate the diversity of the dataset. The main question we ar
     fig.tight_layout()
     fig.subplots_adjust(top=.88);
    
-   The following plots display the results of dimensionality reduction. 
+   The following plots display the results of dimensionality reduction. The results of PCA are on the left and t-SNE is one the right. The real data is shown in purple and the synthetic data shown in black. In both methods of dimensionality reduction, you can see that there is overlap between the real and synthetic data. This indicates that our replicated TimeGAN model was able to generate synthetic historical price data that captures the important features of the real training data. 
 <p align="center"> <img width="824" alt="image" src="https://user-images.githubusercontent.com/78554498/110226466-2fbc9300-7eb5-11eb-90a9-cb09c7c48e71.png"> </p>
 
 ### Fidelity 
