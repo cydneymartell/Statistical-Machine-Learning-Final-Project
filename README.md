@@ -34,7 +34,7 @@ There have been other attempts to generate synthetic temporal data. In the manus
 
    2. GAN Based Approaches <br>
    
-   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to o generate synthetic temporal data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. The additional information in the discriminator input can improve the quality and give some control of the GAN output. Schematics of these architectures are shown to the right in the image adapted from [5]. These models directly learn the probability distribution of <img width="50" alt="image" src="https://user-images.githubusercontent.com/78554498/110226324-dc961080-7eb3-11eb-8406-0fc9399cd4af.png">, therefore, they don't do a great job learning the temporal dynamics of the data. 
+   Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to o generate synthetic temporal data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. The additional information in the discriminator input can improve the quality and give some control of the GAN output. Schematics of these architectures are shown to the right in the image adapted from [5]. These models directly learn the probability distribution of <img width="75" alt="image" src="https://user-images.githubusercontent.com/78554498/110226324-dc961080-7eb3-11eb-8406-0fc9399cd4af.png">, therefore, they don't do a great job learning the temporal dynamics of the data. 
 
 
 ### Advantages of using TimeGAN
@@ -320,6 +320,8 @@ First, we had to process the data to separate it into a training set and a test 
     train_idx = idx[:n_train]
     test_idx = idx[n_train:]
 We then trained a classifier 
+Then we plotted the accuracy of the classifier and the area under the ROC curve.  
+<img width="918" alt="image" src="https://user-images.githubusercontent.com/78554498/110226831-e6217780-7eb7-11eb-8e23-27d745e1473b.png">
 
 ### Usefulness
 Lastly, we will look at the usefulness of the synthetic data. So, we want to know is the synthetic data series as useful as the real data for solving a predictive task. 
