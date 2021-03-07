@@ -29,11 +29,11 @@ There have been other attempts to generate synthetic temporal data. In the manus
    1. Autoregressive Recurrent Network Approaches <br>
       Recurrent Neural Networks, specifically, long-short term memory paired with variational autoencoders have been used to generate high quality sequential  text data [1],[4]. These models are only learning variability from the conditional output probability as described by the following equation: 
    <p align="center">  <img width="128" alt="image" src="https://user-images.githubusercontent.com/78554498/110225143-17924700-7ea8-11eb-8ef6-c81fcb3c9cd7.png"></p> <br>
-   Therefore these supervised models are inherently deterministic and not generative. This is a limitation in generating synthetic time series data.  For     these reasons, RNN based models for sequential data generation have worked well on highly structured text and speech data but this may not translate to less structured time series data. 
+          Therefore these supervised models are inherently deterministic and not generative. This is a limitation in generating synthetic time series data.  For     these reasons, RNN based models for sequential data generation have worked well on highly structured text and speech data but this may not translate to less structured time series data. 
    <br>
    <br>
-   2. GAN Based Approaches <br>
-      Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. 
+       2. GAN Based Approaches <br>
+          Another approach that has been taken is to directly apply GANs to temporal data. The first approach developed to tackle this problem was the C-RNN-GAN architecture which seeks to capture the temporal aspects of the data by using recurrent neural networks for the generator and discriminator. Then this approach was improved in upon in the RCGAN architecture by combining the recurrent GAN with additional conditional information as input. 
 
 
 ### Advantages of using TimeGAN
