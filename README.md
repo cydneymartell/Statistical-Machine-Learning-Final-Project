@@ -292,7 +292,7 @@ We then plotted the results of the dimensionality reduction analysis to look at 
 ### Fidelity 
 Next, we will investigate the fidelity of the dataset. Primarly we want to know, is the synthetic price series indistinguishable from the real data. To test this we trained a classifier to distinguish between real and fake data and then evaluated the performance of this classifier. If the synthetic data has high fidelity then the classifier should be unable to distinguish between the datasets and would have a low performance score. 
 
-First, we had to process the data to separate it into a training set and a test set. 
+First, we processed the real and synthetic data and separated it into a training set and a test set. 
 
     real_data = get_real_data()
     real_data = np.array(real_data)[:len(synthetic_data)]
@@ -304,7 +304,7 @@ First, we had to process the data to separate it into a training set and a test 
     train_idx = idx[:n_train]
     test_idx = idx[n_train:]
 
-We created a classifier 
+We then created a time-series classifier to distinguish between real and synthetic data. The image shows a summary of the classifier we used 
 
     ts_classifier = Sequential([GRU(6, input_shape=(24, 86), name='GRU'), Dense(1, activation='sigmoid', name='OUT')], name='Time_Series_Classifier')
     ts_classifier.compile(loss='binary_crossentropy', optimizer='adam', metrics=[AUC(name='AUC'), 'accuracy'])
@@ -312,16 +312,12 @@ We created a classifier
  <p align="center">   <img width="652" alt="image" src="https://user-images.githubusercontent.com/78554498/110227522-e07b6000-7ebe-11eb-9440-e3a30c638c65.png"> </p>
 
 
-We then trained the classifier on a training dataset composed of both real and synthetic data. We used a 
+We then trained the classifier on a training dataset composed of both real and synthetic data for a total fo 250 epochs. The performance of the classifier was then tracked over the epochs by looking at the AUC under the ROC curve and the accuracy. 
 
       result = ts_classifier.fit(x=train_data,y=train_labels, validation_data=(test_data, test_labels), epochs=250, batch_size=128, verbose=0)
-      
-We then evaluated the classifier on the test dataset composed of both synthetic and real data. After 250 epochs, the AUC was 0.11 and the accuracy was 0.39. 
-
-    ts_classifier.evaluate(x=test_data, y=test_labels)
+      ts_classifier.evaluate(x=test_data, y=test_labels)
     
-Then we plotted the accuracy of the classifier and the area under the ROC curve. 
-sns.set_style('white')
+The accuracy of the classifier and the area under the ROC curve was then plotted and is shown below. The accuracy vs epoch is shown on the left, after 250 epochs the accuracy was 0.39 with a classification error of 61% for the test data. The AUC is on the right and after 250 epochs the AUC was 0.11 for the test data. These metrics of accuracy and AUC are both low, indicating that the time series classifier we trained was unable to distinguish between the real and the synthetic data. 
 
  <p align="center">  <img width="918" alt="image" src="https://user-images.githubusercontent.com/78554498/110226831-e6217780-7eb7-11eb-8e23-27d745e1473b.png"> </p>
 
